@@ -15,11 +15,23 @@
 - In both cases, the exponential moving average tracked future share prices better than the simple moving average, and was much more reactive to incoming corrections.
 
 
+- Next, I wanted to examine the volatility- which can be thought of as how much variance in the share price a stock exhibits over a period of time.  Volatility isn't inherently good or bad, but what it does tell you is how much fluctuation a stock experiences.  Stocks that experience a high amount of volatility are considered to be riskier investments than those that experience less. However, the risk can lead to great returns, but it can also lead to losses.  Two important facets to consider when looking at a particular stock's volatility are what your personal risk tolarance is and what is causing the volatility.  Stocks are representative of their companies, so understanding what factors make a company volatile can lead to a greater understanding of why it's stock experiences it's level of volatility. 
 
+- There are different ways to examine a stocks volatility as a percentage, the method I chose was using the standard deviation (std) of the log returns of the stocks. Below is the code that was used to get the measurments.
 
+``` 
+    df["Log_Returns"] = np.log(df["close"]/df["close"].shift())
+     df["Log_Returns"].std()
+     
+     volatility = df["Log_Returns"].std()*252**.5
+     str_vol = str(round(volatility, 5)*100)
+    print("The volatility is :", str_vol)
+```     
+- The histrograms below representation of each stock's volatility percentage is below- with TSLA first followed by NFLX.
 
-- VOLATILITY 
 
 ![ALT_TEXT](https://github.com/Nickguild1993/NFLX_TSLA_Analysis/blob/main/Visuals/TSLA_Volatility_Hist.png)
 
 ![ALT_TEXT](https://github.com/Nickguild1993/NFLX_TSLA_Analysis/blob/main/Visuals/NFLX_Volatility.png)
+
+- What is clear is that both stocks experienced a tremendous amount of volatility from May of 2020 -> May of 2021.  While the volatility present in each led to very high levels of growth, it also lent itself to days of sharp correction in which the value of each stock would see preciptious falls.  Another thing to notice is where on the log return (X-Axis) the highest frequency took place.  For NFLX, the volatility was more in line with the mean share price throughout the timeframe, which did make it experience fewer days of losses, but also meant that the days in which its value increased were not of the same magnitude of TSLA's.  This comparision highlights the importance of gauging one's risk tolarance when buying equities- if you're comforable with wider value swings, then an equity with more volatility might make sense, but if you prefer more security, knowing that such security A) isn't guarunteed B) that the lower level of volatility does put a governor on returns, but also makes the investment less risky.
